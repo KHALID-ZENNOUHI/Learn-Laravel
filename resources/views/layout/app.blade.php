@@ -29,10 +29,14 @@
     <link href="{{url('assets/assetsAdmin/vendor/slick/slick.css')}}" rel="stylesheet" media="all">
     <link href="{{url('assets/assetsAdmin/vendor/select2/select2.min.css')}}" rel="stylesheet" media="all">
     <link href="{{url('assets/assetsAdmin/vendor/perfect-scrollbar/perfect-scrollbar.css')}}" rel="stylesheet" media="all">
-
+        <!-- tom select -->
+        <link href="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/css/tom-select.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/tom-select@2.3.1/dist/js/tom-select.complete.min.js"></script>
     <!-- Main CSS-->
     <link href="{{url('assets/assetsAdmin/css/theme.css')}}" rel="stylesheet" media="all">
     <link href="{{url('assets/assetsAdmin/css/style.css')}}" rel="stylesheet" media="all">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js">
 
 </head>
 
@@ -77,8 +81,9 @@
 
     <!-- Main JS-->
     <script src="{{url('assets/assetsAdmin/js/main.js')}}"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-</body>
 
 </html>
 <!-- end document-->

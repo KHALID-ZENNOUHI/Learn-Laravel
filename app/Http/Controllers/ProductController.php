@@ -16,7 +16,7 @@ class ProductController extends Controller
             ->select('products.*', 'categories.name as productCategorie')
             ->get();
         $categories = Categorie::all();
-        return view('admin.home', compact('products', 'categories'));
+        return view('client.home', compact('products', 'categories'));
     }
 
     public function show() {
@@ -30,7 +30,6 @@ class ProductController extends Controller
 
     public function add(Request $request)
     {
-        // dd($request);
         $request->validate([
             'product' => 'required',
             'description'  => 'required',
@@ -86,5 +85,24 @@ class ProductController extends Controller
         $product->delete();
         return redirect('/products');
     }
+
+    public function search(Request $request)
+    {
+        $search = $request->search;
+        $products = Product::where('name', 'like', '%' . $search . '%')->get();
+        return view('client.home', compact('products'));
+    }
+
+    public function filter(Request $request)
+    {
+        $filter = $request->categorie;
+
+        $products = Product::whereHas('category', function ($query) use ($filter) {
+            $query->where('name', $filter);
+        })->get();
+        return view('client.home', compact('products'));
+        // Now $products contains only products that have a related category with the specified name.
+    }
 }
+
 

@@ -1,12 +1,12 @@
 
-@extends('layout.app')
+@extends('layout.client')
 
-@section('title', 'Dashboard')
+@section('title', 'home')
 
 @section('content')
             <!-- MAIN CONTENT-->
             
-            3<section class="section-products">
+        <section class="section-products">
 		<div class="container">
 				<div class="row justify-content-center text-center">
 						<div class="col-md-8 col-lg-6">
@@ -17,12 +17,13 @@
 						</div>
 				</div>
 				<div class="row">
+				@if(count($products) > 0)
                 @foreach($products as $product)
 						<!-- Single Product -->
 						<div class="col-md-6 col-lg-4 col-xl-3">
 								<div id="product-1" class="single-product">
 										<div class="part-1">
-                                            <img src="images/{{$product->image}}" style="">
+                                            <img src="images/{{$product->image}}">
 												<ul>
 														<li><a href="#"><i class="fas fa-shopping-cart"></i></a></li>
 														<li><a href="#"><i class="fas fa-heart"></i></a></li>
@@ -39,6 +40,9 @@
 								</div>
 						</div>
                         @endforeach
+						@else
+						<p>There are no products to display</p>
+						@endif
 				</div>
 		</div>
 </section>

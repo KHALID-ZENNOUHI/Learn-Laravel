@@ -1,7 +1,7 @@
 
 @extends('layout.app')
 
-@section('title', 'Products')
+@section('title', 'Users')
 
 @section('content')
 <!-- MAIN CONTENT-->
@@ -10,35 +10,31 @@
                             <div class="col-md-12">
                                 <!-- DATA TABLE-->
                                 <div class = "table-data__tool">
-                                <h3 class="title-5 m-b-35">Data Products</h3>
-                                <a href="#addproduct" class="" data-toggle="modal"><i class="zmdi zmdi-plus"></i><span>Add New Products</span></a>
+                                <h3 class="title-5 m-b-35">Data Users</h3>
+                                <a href="#adduser" class="" data-toggle="modal"><i class="zmdi zmdi-plus"></i><span>Add New user</span></a>
                                 </div>
                                 <div class="table-responsive m-b-40">
                                     <table id="myTable" class="table table-borderless table-data3">
                                         <thead>
                                             <tr>
-                                                <th>Products</th>
-                                                <th>Description</th>
-                                                <th>Price</th>
-                                                <th>Categorie</th>
-                                                <th>Image</th>
+                                                <th>Name</th>
+                                                <th>Email</th>
+                                                <th>Role</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>
-                                        @foreach($products as $product)
+                                        @foreach($users as $user)
                                         <tbody>
                                                 <tr>
-                                                    <td>{{$product->name}}</td>
-                                                    <td>{{$product->description}}</td>
-                                                    <td>{{$product->price}}</td>
-                                                    <td>{{$product->productCategorie}}</td>
-                                                    <td><img src="images/{{$product->image}}" alt=""></td>
+                                                    <td>{{$user->name}}</td>
+                                                    <td>{{$user->email}}</td>
+                                                    <td>{{$user->role->name}}</td>
                                                     <td>
                                                     <div class="table-data-feature">
-                                                        <a href="#editproduct{{$product->id}}" class="edit" data-toggle="modal"><button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
+                                                        <a href="#edituser{{$user->id}}" class="edit" data-toggle="modal"><button class="item" data-toggle="tooltip" data-placement="top" title="Edit">
                                                         <i class="zmdi zmdi-edit"></i>
                                                         </button></a>
-                                                        <form action="{{route('products.delete', $product->id)}}" method="POST">
+                                                        <form action="{{ route('users.delete', $user->id) }}" method="POST">
                                                             @csrf
                                                             @method('DELETE')
                                                             <button class="item" data-toggle="tooltip" data-placement="top" title="Delete">
@@ -48,41 +44,33 @@
                                                     </div>
                                                 </td>
                                                 <!-- Edit Modal HTML -->
-                                                <div id="editproduct{{$product->id}}" class="modal fade">
+                                                <div id="edituser{{$user->id}}" class="modal fade">
                                                 <div class="modal-dialog">
                                                     <div class="modal-content">
-                                                        <form method="POST" action="{{route('products.edit', $product->id)}}" enctype="multipart/form-data">
+                                                        <form method="POST" action="{{ route('users.update', $user->id) }}">
                                                             @csrf
                                                             @method('PUT')
-                                                            <input type="hidden" value = "{{$product->id}}" name ="id">
+                                                            <input type="hidden" value = "{{$user->id}}" name ="id">
                                                             <div class="modal-header">
-                                                                <h4 class="modal-title">edit Product</h4>
+                                                                <h4 class="modal-title">edit User</h4>
                                                                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                                             </div>
                                                             <div class="modal-body">
                                                                 <div class="form-group">
-                                                                    <label>Product:</label>
-                                                                    <input type="text" value="{{$product->name}}" name="product" class="form-control" required>
+                                                                    <label>User:</label>
+                                                                    <input type="text" value="{{$user->name}}" name="name" class="form-control" required>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Description:</label>
-                                                                    <textarea name="description" class="form-control" id="" cols="10" rows="10">{{$product->description}}</textarea>
+                                                                    <label>Email:</label>
+                                                                    <input type="email" value="{{$user->email}}" name="email" class="form-control" required>
                                                                 </div>
                                                                 <div class="form-group">
-                                                                    <label>Price:</label>
-                                                                    <input type="number" value="{{$product->price}}" name="price" class="form-control" required>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                <label>Categorie:</label>
-                                                                    <select name="categorie" id="" class="form-control">
-                                                                        @foreach($categories as $categorie)
-                                                                        <option value="{{$categorie->id}}" {{($categorie->name === $product->productCategorie) ? 'selected' : ''}}>{{$categorie->name}}</option>
+                                                                <label>Role:</label>
+                                                                    <select name="role_id" id="" class="form-control">
+                                                                        @foreach($roles as $role)
+                                                                        <option value="{{$role->id}}" {{($role->name === $user->role->name) ? 'selected' : ''}}>{{$role->name}}</option>
                                                                         @endforeach
                                                                     </select>
-                                                                </div>
-                                                                <div class="form-group">
-                                                                    <label>Image:</label>
-                                                                    <input type="file" name="image"  class="form-control" accept="image/*">
                                                                 </div>
                                                             </div>
                                                             <div class="modal-footer">
@@ -115,39 +103,35 @@
         </div>                                        
     </div>
 <!-- Add Modal  -->
-<div id="addproduct" class="modal fade">
+<div id="adduser" class="modal fade">
     <div class="modal-dialog">
         <div class="modal-content">
-            <form method="POST" action="{{route('products.add')}}" enctype="multipart/form-data">
+            <form method="POST" action="{{route('users.add')}}" enctype="multipart/form-data">
                 @csrf
                 <div class="modal-header">
-                    <h4 class="modal-title">Add Product</h4>
+                    <h4 class="modal-title">Add User</h4>
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label>Product:</label>
-                        <input type="text" name="product" class="form-control" required>
+                        <label>User:</label>
+                        <input type="text" name="name" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Description:</label>
-                        <textarea name="description" class="form-control" id="" cols="10" rows="10"></textarea>
+                        <label>Email:</label>
+                        <input type="email" name="email" class="form-control" required>
                     </div>
                     <div class="form-group">
-                        <label>Price:</label>
-                        <input type="number" name="price" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <select name="categorie" id="" class="form-control">
-                            <option value="" selected>choose a categorie</option>
-                            @foreach($categories as $categorie)
-                            <option value="{{$categorie->id}}">{{$categorie->name}}</option>
+                        <select name="role_id" id="" class="form-control">
+                            <option value="" selected>choose a role</option>
+                            @foreach($roles as $role)
+                            <option value="{{$role->id}}">{{$role->name}}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <label>Price:</label>
-                        <input type="file" name="image" class="form-control" accept="image/*" required>
+                        <label>Password:</label>
+                        <input type="password" name="password" class="form-control" required>
                     </div>
                 </div>
                 <div class="modal-footer">

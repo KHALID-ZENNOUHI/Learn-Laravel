@@ -42,4 +42,17 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function role()
+    {
+        return $this->belongsTo(Role::class);
+    }
+
+    /**
+     * Get the permissions associated with the user.
+     */
+    public function permissions()
+    {
+        return $this->hasMany(Permission::class);
+    }
 }

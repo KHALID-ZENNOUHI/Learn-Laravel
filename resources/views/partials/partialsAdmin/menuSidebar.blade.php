@@ -9,8 +9,12 @@
                 <nav class="navbar-sidebar">
                     <ul class="list-unstyled navbar__list">
                         <li class="active has-sub">
-                            <a class="js-arrow" href="{{ route('products.index') }}">
-                                <i class="fas fa-tachometer-alt"></i>Home</a>
+                            <a class="js-arrow" href="{{ route('users.show') }}">
+                                <i class="fas fa-tachometer-alt"></i>User</a>
+                        </li>
+                        <li class="active has-sub">
+                            <a class="js-arrow" href="{{ route('permissions.index') }}">
+                                <i class="fas fa-tachometer-alt"></i>Permission</a>
                         </li>
                         <li>
                             <a href="{{ route('products.show') }}">

@@ -112,4 +112,28 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+
+$(function () {
+
+    // Initialize the DataTable
+
+    var table = $('#daterange_table').DataTable({
+        processing : true,
+        serverSide : true,
+        ajax : {
+        // Define the URL to fetch data from using the 'users.index' route
+            url : "{{ route('categories.show') }}",
+        // Pass additional data to the server, including the start_date and end_date
+
+        },
+        columns : [
+            {data : 'id', name : 'id'},
+            {data : 'name', name : 't'}
+        ]
+    });
+
+});
+
+</script>
 @endsection
